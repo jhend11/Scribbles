@@ -19,6 +19,9 @@
 		B466A31F198FBF37000FFC71 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B466A307198FBF37000FFC71 /* UIKit.framework */; };
 		B466A327198FBF37000FFC71 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B466A325198FBF37000FFC71 /* InfoPlist.strings */; };
 		B466A329198FBF37000FFC71 /* ScribblesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B466A328198FBF37000FFC71 /* ScribblesTests.m */; };
+		B466A335198FBFAD000FFC71 /* SCRDrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B466A334198FBFAD000FFC71 /* SCRDrawViewController.m */; };
+		B466A339198FBFF5000FFC71 /* SCRDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = B466A338198FBFF5000FFC71 /* SCRDrawView.m */; };
+		B466A33C19900BCD000FFC71 /* SCRDrawSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B466A33B19900BCD000FFC71 /* SCRDrawSlider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,12 @@
 		B466A324198FBF37000FFC71 /* ScribblesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ScribblesTests-Info.plist"; sourceTree = "<group>"; };
 		B466A326198FBF37000FFC71 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B466A328198FBF37000FFC71 /* ScribblesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScribblesTests.m; sourceTree = "<group>"; };
+		B466A333198FBFAD000FFC71 /* SCRDrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRDrawViewController.h; sourceTree = "<group>"; };
+		B466A334198FBFAD000FFC71 /* SCRDrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRDrawViewController.m; sourceTree = "<group>"; };
+		B466A337198FBFF5000FFC71 /* SCRDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRDrawView.h; sourceTree = "<group>"; };
+		B466A338198FBFF5000FFC71 /* SCRDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRDrawView.m; sourceTree = "<group>"; };
+		B466A33A19900BCD000FFC71 /* SCRDrawSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRDrawSlider.h; sourceTree = "<group>"; };
+		B466A33B19900BCD000FFC71 /* SCRDrawSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRDrawSlider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +86,7 @@
 		B466A2F7198FBF37000FFC71 = {
 			isa = PBXGroup;
 			children = (
+				B466A332198FBF87000FFC71 /* Controllers */,
 				B466A309198FBF37000FFC71 /* Scribbles */,
 				B466A322198FBF37000FFC71 /* ScribblesTests */,
 				B466A302198FBF37000FFC71 /* Frameworks */,
@@ -142,6 +152,27 @@
 				B466A325198FBF37000FFC71 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B466A332198FBF87000FFC71 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B466A333198FBFAD000FFC71 /* SCRDrawViewController.h */,
+				B466A334198FBFAD000FFC71 /* SCRDrawViewController.m */,
+				B466A336198FBFCC000FFC71 /* Draw Views */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B466A336198FBFCC000FFC71 /* Draw Views */ = {
+			isa = PBXGroup;
+			children = (
+				B466A337198FBFF5000FFC71 /* SCRDrawView.h */,
+				B466A338198FBFF5000FFC71 /* SCRDrawView.m */,
+				B466A33A19900BCD000FFC71 /* SCRDrawSlider.h */,
+				B466A33B19900BCD000FFC71 /* SCRDrawSlider.m */,
+			);
+			name = "Draw Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +272,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B466A310198FBF37000FFC71 /* main.m in Sources */,
+				B466A33C19900BCD000FFC71 /* SCRDrawSlider.m in Sources */,
+				B466A339198FBFF5000FFC71 /* SCRDrawView.m in Sources */,
+				B466A335198FBFAD000FFC71 /* SCRDrawViewController.m in Sources */,
 				B466A314198FBF37000FFC71 /* SCRAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
