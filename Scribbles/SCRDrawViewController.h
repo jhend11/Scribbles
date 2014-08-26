@@ -10,4 +10,5 @@
 @class SCRDrawView;
 @interface SCRDrawViewController : UIViewController
 @property (nonatomic) SCRDrawView * view;
+
 @end

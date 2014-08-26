@@ -22,13 +22,26 @@
     BOOL colorChoicesOpen;
     UIView * lineWidthSize;
     SCRDrawSlider * lineSlider;
+    
+    
+    BOOL * chooseLine;
+    UIButton * chooseLineButton;
+    UIButton * chooseScribbleButton;
+    UIButton * reset;
+    
 }
+
+
+// add reset button
+// should clear entire screen in the draw view****
+//
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        colorButtons = [@[] mutableCopy];
         
         UIButton * redButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, 40, 40)];
         
@@ -56,24 +69,42 @@
                [UIColor cyanColor],
                
                ];
-    for (UIColor * color in colors)
-    {
-        NSInteger index = [colors indexOfObject:color];
-        
-        
-        UIButton * colorButton = [[UIButton alloc]initWithFrame:CGRectMake(10 , 10 + (50 * index), 40, 40)];
-        
-        colorButton.backgroundColor = color;
-        colorButton.layer.cornerRadius = 20;
-        
-        [colorButton addTarget:self action:@selector(changeLineColor:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:colorButton];
-    }
+
+    
+    reset = [[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH + 180)/2, SCREEN_HEIGHT - 390, 60, 60)];
+    reset.layer.cornerRadius = 30;
+    UIImage * resetImage = [UIImage imageNamed:@"reset"];
+    [reset setImage:resetImage forState:UIControlStateNormal];
+    [reset addTarget:self action:@selector(resetTheScreen) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:reset];
+    
+    
+    
+    chooseLineButton = [[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH + 180)/2, SCREEN_HEIGHT - 90, 60, 60)];
+    chooseLineButton.layer.cornerRadius = 30;
+    UIImage * line = [UIImage imageNamed:@"lines_button"];
+    [chooseLineButton setImage:line forState:UIControlStateNormal];
+    [chooseLineButton addTarget:self action:@selector(changeToLine) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:chooseLineButton];
+    
+    
+    chooseScribbleButton = [[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH + 180)/2, SCREEN_HEIGHT - 160, 60, 60)];
+    chooseScribbleButton.layer.cornerRadius = 30;
+    UIImage * scribble = [UIImage imageNamed:@"scribble_button"];
+    [chooseScribbleButton setImage:scribble forState:UIControlStateNormal];
+    [chooseScribbleButton addTarget:self action:@selector(changeLineToScribble) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:chooseScribbleButton];
+    
+    
     
     chooseColor = [[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 60)/2, SCREEN_HEIGHT - 70, 60, 60)];
     chooseColor.layer.cornerRadius = 30;
     chooseColor.backgroundColor = colors[0];
+    
+    
     [chooseColor addTarget:self action:@selector(showColorChoices) forControlEvents:UIControlEventTouchUpInside];
+
+   
     [self.view addSubview:chooseColor];
     self.view.lineColor = colors[0];
     
@@ -91,10 +122,27 @@
     
     
 }
+-(void)resetTheScreen
+{
+    [self.view.scribbles removeAllObjects];
+    [self.view setNeedsDisplay];
+}
 -(void)hideColorChoices
 {
-    
+    for (UIButton * colorButton in colorButtons)
+    {
+        NSInteger index = [colorButtons indexOfObject:colorButton];
+        [UIView animateWithDuration:0.2 delay:0.05 * index options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            colorButton.center = chooseColor.center;
+        } completion:^(BOOL finished) {
+            [colorButton removeFromSuperview];
+     }];
+        
+    }
+    [colorButtons removeAllObjects];
+    colorChoicesOpen = NO;
 }
+
 -(void)showColorChoices
 {
     if (colorChoicesOpen)
@@ -124,13 +172,15 @@
         float moveX = chooseColor.center.x + sinf(radians * index) * radius;
         float moveY = chooseColor.center.y + cosf(radians * index) * radius;
         
-        [UIView animateWithDuration:0.2 delay:0.05 options:UIViewAnimationOptionAllowUserInteraction animations:^
+        [UIView animateWithDuration:0.2 delay:0.05 * index options:UIViewAnimationOptionAllowUserInteraction animations:^
          {
              colorButton.center = CGPointMake(moveX, moveY);
          } completion:^(BOOL finished) {
              
          }];
+        [self.view insertSubview:colorButton atIndex:0];
     }
+    colorChoicesOpen = YES;
 }
 -(void)openSlider
 {
@@ -149,6 +199,14 @@
 }
 
 
+-(void)changeLineToScribble;
+{
+    self.view.scribbleMode = YES;
+}
+-(void)changeToLine;
+{
+    self.view.scribbleMode = NO;
+}
 -(void)changeColorButtonWasClicked
 {
     
@@ -156,9 +214,8 @@
 -(void)changeLineColor:(UIButton*)button
 {
     
-    SCRDrawView * view = (SCRDrawView *)self.view;
-    view.lineColor = button.backgroundColor;
-    [view setNeedsDisplay];
+    self.view.lineColor = chooseColor.backgroundColor = button.backgroundColor;
+    [self hideColorChoices];
     
 }
 

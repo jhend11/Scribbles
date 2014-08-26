@@ -94,12 +94,41 @@
     
     [self.scribbles addObject:self.currentScribble];
     
-    [self scribbleWithTouches:touches];
+    if (self.scribbleMode) {
+        [self scribbleWithTouches:touches];
+
+    }
+    else{
+    
+    
+    //this is for lines
+    UITouch * touch = [touches allObjects][0];
+    CGPoint location = [touch locationInView:self];
+
+    self.currentScribble[@"points"][0] = [NSValue valueWithCGPoint:location];
+    }
+    [self setNeedsDisplay];
+
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self scribbleWithTouches:touches];
+    [self.scribbles addObject:self.currentScribble];
+    
+    if (self.scribbleMode) {
+        [self scribbleWithTouches:touches];
+        
+    }
+    else{
+        
+        
+        //this is for lines
+        UITouch * touch = [touches allObjects][0];
+        CGPoint location = [touch locationInView:self];
+        
+        self.currentScribble[@"points"][1] = [NSValue valueWithCGPoint:location];
+    }
+    [self setNeedsDisplay];
 
 }
 
